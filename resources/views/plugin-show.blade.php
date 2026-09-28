@@ -117,6 +117,21 @@
                                 Works in Jump
                             </span>
                         @endif
+
+                        @if ($plugin->supportedMobileVersions() !== [])
+                            <span class="inline-flex flex-wrap items-center gap-1.5">
+                                @foreach ($plugin->supportedMobileVersions() as $majorVersion => $version)
+                                    <span
+                                        class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-700 dark:border-gray-600 dark:text-gray-300"
+                                        title="Works with NativePHP Mobile {{ $majorVersion }}.x from {{ $version }}"
+                                    >
+                                        <x-icons.device-mobile-phone class="h-3.5 shrink-0" aria-hidden="true" />
+                                        <span class="sr-only">NativePHP Mobile</span>
+                                        {{ $version }}
+                                    </span>
+                                @endforeach
+                            </span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -253,6 +268,21 @@
                                 </div>
                             </div>
                         </aside>
+                    @endif
+
+                    @if ($plugin->showsDemoVideoPublicly())
+                        <section class="mb-8" aria-label="Demo video">
+                            <div class="relative aspect-video w-full overflow-hidden rounded-2xl border border-gray-200 bg-black dark:border-gray-700">
+                                <iframe
+                                    src="{{ $plugin->demoVideo()->embedUrl() }}"
+                                    title="{{ $plugin->display_name ?? $plugin->name }} demo video"
+                                    class="size-full"
+                                    loading="lazy"
+                                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                        </section>
                     @endif
 
                     <article
